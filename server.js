@@ -26,15 +26,15 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // Use express.static to serve the public folder as a static directory
 app.use(express.static("public"));
 
-var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/week18Populater";
+var databaseUri = 'mongodb://localhost/week18Populater';
 
-// Set mongoose to leverage built in JavaScript ES6 Promises
-// Connect to the Mongo DB
-mongoose.Promise = Promise;
-mongoose.connect(MONGODB_URI);
-
-// Connect to the Mongo DB
-// mongoose.connect("mongodb://localhost/week18Populater", { useNewUrlParser: true });
+if (process.env.MONGODB_URI) {
+  // THIS EXECUTES IF THIS IS BEING EXECUTED IN YOUR HEROKU APP
+  mongoose.connect(process.env.MONGODB_URI);
+} else {
+  // THIS EXECUTES IF THIS IS BEING EXECUTED ON YOUR LOCAL MACHINE
+  mongoose.connect(databaseUri);
+}
 
 // Routes
 
