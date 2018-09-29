@@ -30,10 +30,10 @@ var databaseUri = 'mongodb://localhost/week18Populater';
 
 if (process.env.MONGODB_URI) {
   // THIS EXECUTES IF THIS IS BEING EXECUTED IN YOUR HEROKU APP
-  mongoose.connect(process.env.MONGODB_URI);
+  mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true });
 } else {
   // THIS EXECUTES IF THIS IS BEING EXECUTED ON YOUR LOCAL MACHINE
-  mongoose.connect(databaseUri);
+  mongoose.connect(databaseUri, { useNewUrlParser: true });
 }
 
 // Routes
