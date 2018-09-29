@@ -12,7 +12,7 @@ var cheerio = require("cheerio");
 // Require all models
 var db = require("./models");
 
-var PORT = 80;
+var PORT = 3000;
 
 // Initialize Express
 var app = express();
@@ -26,8 +26,15 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // Use express.static to serve the public folder as a static directory
 app.use(express.static("public"));
 
+var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/week18Populater";
+
+// Set mongoose to leverage built in JavaScript ES6 Promises
 // Connect to the Mongo DB
-mongoose.connect("mongodb://localhost/week18Populater", { useNewUrlParser: true });
+mongoose.Promise = Promise;
+mongoose.connect(MONGODB_URI);
+
+// Connect to the Mongo DB
+// mongoose.connect("mongodb://localhost/week18Populater", { useNewUrlParser: true });
 
 // Routes
 
